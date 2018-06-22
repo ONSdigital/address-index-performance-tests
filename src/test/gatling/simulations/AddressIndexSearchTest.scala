@@ -6,11 +6,12 @@ import scala.concurrent.duration._
 
 import scala.language.postfixOps
 
-class SbrControlUnitsTest extends Simulation {
+class AddressIndexSearchTest extends Simulation {
 
   var baseUrl: String = ConfigLoader("baseUrl")
   var numOfConcurrentUsers: Int = ConfigLoader("concurrentUsers") toInt
   var getRequest = ConfigLoader("get_request")
+  var request_type = ConfigLoader("request_type")
   var requestName: String = ConfigLoader("request_name_prefix") + getRequest
 
   println(s"Running test with numOfConcurrentUsers: $numOfConcurrentUsers, baseUrl : $baseUrl, GET Request : $getRequest")
@@ -25,15 +26,28 @@ class SbrControlUnitsTest extends Simulation {
 
 
   val headers_0 = Map("Upgrade-Insecure-Requests" -> "1")
-  val scn: ScenarioBuilder = scenario("SbrControlUnitsTest")
-    .exec(http(requestName)
-      .get(getRequest)
-      .headers(headers_0))
 
+  var scn: ScenarioBuilder = null;
+  if (request_type == "POST") {
+    scn = scenario("SbrControlUnitsTest")
+      .exec(
+        http(requestName)
+          .get(getRequest)
+          .headers(headers_0)
+          .body(RawFileBody("es.json")).asJSON
+    )
+  } else {
+    scn = scenario("SbrControlUnitsTest")
+      .exec(
+        http(requestName)
+          .get(getRequest)
+          .headers(headers_0)
+      )
+  }
 
   //  setUp(scn.inject(atOnceUsers(numOfConcurrentUsers))).protocols(httpProtocol)
 
-  setUp(scn.inject(constantUsersPerSec(numOfConcurrentUsers) during (1 second)))
+  setUp(scn.inject(constantUsersPerSec(numOfConcurrentUsers) during (1 minute)))
     .throttle(jumpToRps(numOfConcurrentUsers), holdFor(1 minute))
     .protocols(httpProtocol)
 
