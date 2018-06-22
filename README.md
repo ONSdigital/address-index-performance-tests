@@ -3,22 +3,22 @@ Table of Contents
 
    * [About this project](#about-this-project)
    * [Pre-requisites](#pre-requisites)
-      * [Setup sbr-control-api](#setup-sbr-control-api)
+      * [Setup address-index-api](#setup-address-index-api)
       * [Setup Gatling](#setup-gatling)
       * [OS Tuning](#os-tuning)
    * [Usage](#usage)
    * [Configuration](#configuration)
 
 # About this project
-This project is a repository of Gatling based performance tests targeted at individual endpoints in sbr-control-api.
+This project is a repository of Gatling based performance tests targeted at individual endpoints in address-index-api.
 
 # Pre-requisites
 
-## Setup sbr-control-api
-It is assumed that you have followed the guide to setup sbr-control-api (See sbr-control-api's [Development Setup (MacOS)](https://github.com/ONSdigital/sbr-control-api#development-setup-macos) )
+## Setup address-index-api, address-index-demo-ui, address-index-data
+TBD
 
 ## Setup Gatling
-As a part of setting up sbr-control-api [above](#sbr-control-api), you will have all the pre-requisites in place to run the gatling scenarios in this project.
+As a part of setting up address-index-api [above](#address-index-api), you will have all the pre-requisites in place to run the gatling scenarios in this project.
 
 Setup involves:
 
