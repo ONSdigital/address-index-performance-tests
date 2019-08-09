@@ -2,7 +2,6 @@ import sbt.Keys.organizationName
 
 lazy val Versions = new {
   val scala = "2.12.6"
-  val appVersion = "0.1-SNAPSHOT"
 }
 
 lazy val Constant = new {
@@ -47,10 +46,10 @@ lazy val root = (project in file("."))
   .settings(inConfig(Gatling)(Defaults.testSettings): _*)
   .settings(commonSettings: _*)
   .settings(
-    organizationName := s"${Constant.organizationName}",
-    organization := s"${Constant.organization}",
-    moduleName := s"${Constant.appName}",
-    version := s"${Versions.appVersion}",
+    organizationName := Constant.organizationName,
+    organization := Constant.organization,
+    moduleName := Constant.appName,
+    version := version.value,
     name := s"${organizationName.value}-${Constant.team}-${moduleName.value}",
     version := (version in ThisBuild).value,
     libraryDependencies ++= Seq(
